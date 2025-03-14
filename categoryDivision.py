@@ -20,15 +20,15 @@ def classify_respondent(category):
         return 'Homemaker'
     else:
         return 'Others'
-year = 2008
-df = pd.read_csv(fr'RBIUnitLevel\Data_{year}.csv')
+year = 2024
+df = pd.read_csv(fr'C:\Users\abhin\OneDrive\Desktop\Edit\RBIUnitLevel\Data_{year}.csv')
 pd.set_option('display.max_rows',None)
 pd.set_option('display.max_columns',None)
 
 df['Respondent_Category'] = df['Category of Respondent'].apply(classify_respondent)
 
 # Save the modified file
-df.to_csv(fr'RBIUnitLevel\Data_{year}_categorized.csv', index=False)
+df.to_csv(fr'C:\Users\abhin\OneDrive\Desktop\Edit\RBIUnitLevel\Data_{year}.csv', index=False)
 
 # Display sample output
 print(df[['Category of Respondent', 'Respondent_Category']].head())
