@@ -11,14 +11,14 @@ def map_interest_rate(rate):
     elif rate.startswith('>=') or rate.startswith('>'):  # Cases like '>=16' # or rate.startswith('>')
         return 16
     else:  # Ranges like '5-6'
-        
-        print(float(rate.split('-')[0]))
-        return float(rate.split('-')[0])  # Take the lower bound
-        # except Exception as e:
-        #     return 'Missing'
+        try:
+            #print(float(rate.split('-')[0]))
+            return float(rate.split('-')[0])  # Take the lower bound
+        except Exception as e:
+            return np.nan
 
-year = 2008
-df = pd.read_csv(fr'RBIUnitLevel\Data_{year}.csv')
+year = 2024
+df = pd.read_csv(fr'Data_{year}.csv')
 pd.set_option('display.max_rows',None)
 pd.set_option('display.max_columns',None)
 
@@ -30,8 +30,8 @@ labels = [f"{bins[i]}-{bins[i+1]}" for i in range(len(bins)-1)]
 # print(bins)
 # print(labels)
 
-df['New_Bin'] = pd.cut(df['Numeric_Rate'], bins=bins, labels=labels, include_lowest=True, right=False)
+df['Modified View on Current Inflation Rate'] = pd.cut(df['Numeric_Rate'], bins=bins, labels=labels, include_lowest=True, right=False)
 # print(df["View on Current Inflation Rate"].unique())
-df.to_csv(fr'RBIUnitLevel\Data_{year}_irc.csv', index=False)
+df.to_csv(fr'Data_{year}.csv', index=False)
 
-print(df[['View on Current Inflation Rate', 'New_Bin']].head())
+print(df[['View on Current Inflation Rate', 'Modified View on Current Inflation Rate']].head())
